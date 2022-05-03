@@ -1,5 +1,4 @@
 #![deny(clippy::all)]
-
 use napi_derive::napi;
 use scraper::{ElementRef, Html, Selector};
 

@@ -9,12 +9,10 @@ crate-type = ["cdylib"]
 [dependencies]
 # Default enable napi4 feature, see https://nodejs.org/api/n-api.html#node-api-version-matrix
 napi = { version = "2.3.3", default-features = false, features = ["napi4"] }
-napi-derive = "2.3.0-canary.0"
+napi-derive = "2.3.3"
 scraper = "0.12.0"
-ego-tree = "0.6.2"
 
 [build-dependencies]
-napi-derive = "2.3.3"
 napi-build = "1.2.1"
 
 [profile.release]
