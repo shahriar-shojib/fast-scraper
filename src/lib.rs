@@ -1,5 +1,6 @@
 #![deny(clippy::all)]
 
+use napi_derive::napi;
 use scraper::{ElementRef, Html, Selector};
 
 struct ElementWrapper {
@@ -13,8 +14,8 @@ pub struct HtmlElement {
 
 #[napi]
 impl HtmlElement {
-  #[napi(constructor)]
-  pub fn constructor() {}
+  // #[napi(constructor)]
+  // pub fn constructor() {}
 
   fn new(element: ElementRef) -> Self {
     let element: ElementRef = unsafe { std::mem::transmute::<_, ElementRef<'static>>(element) };
@@ -47,10 +48,14 @@ impl HtmlElement {
   pub fn html(&self) -> String {
     self.inner.element.html()
   }
-}
 
-#[macro_use]
-extern crate napi_derive;
+  #[napi]
+  pub fn first_child(&self) -> Option<HtmlElement> {
+    let child = self.inner.element.first_child()?;
+
+    ElementRef::wrap(child).map(|e| Self::new(e))
+  }
+}
 
 #[napi(js_name = "HtmlDocument")]
 struct HtmlDocument {
